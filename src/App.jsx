@@ -26,12 +26,16 @@ import GroupDetail from './page/group/GroupDetail.jsx';
 import SavedPost from './page/saved/SavedPost.jsx';
 import Favorite from './page/favorite/Favorite.jsx';
 import Setting from './page/setting/Setting.jsx';
-
+import Login from './page/login/Login.jsx';
+import Register from './page/login/Register';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
   return (
     <>
+    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile-chat" element={<ProfileChat />} />
@@ -59,6 +63,9 @@ function App() {
         <Route path="/save-post/detail" element={<SavedPost />} />
         <Route path="/favorite" element={<Favorite />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
       </Routes>
     </>
   );
