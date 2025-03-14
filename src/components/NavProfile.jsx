@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function NavProfile({active}) {
+export default function NavProfile({user, active}) {
     return (
         <div>
             <div className="row">
@@ -17,15 +17,15 @@ export default function NavProfile({active}) {
                                         <img className="avatar-img max-un" src="src/assets/images/avatar-14.png" alt="avatar" />
                                     </div>
                                     <div className="text-area text-start">
-                                        <h4 className="m-0 mb-2">Lerio Mao</h4>
+                                        <h4 className="m-0 mb-2">{user.fullName}</h4>
                                         <div className="flex-wrap gap-2 text-center friends-list d-flex align-items-center">
                                             <ul className="d-flex align-items-center justify-content-center">
                                                 <li><img src="src/assets/images/avatar-3.png" alt="image" /></li>
                                                 <li><img src="src/assets/images/avatar-2.png" alt="image" /></li>
                                                 <li><img src="src/assets/images/avatar-4.png" alt="image" /></li>
                                             </ul>
-                                            <span className="mdtxt d-center">10k Followers</span>
-                                            <span className="mdtxt d-center following">200 Following</span>
+                                            <span className="mdtxt d-center">{user.follower_count == null ? 0 :user.follower_count } Followers</span>
+                                            <span className="mdtxt d-center following">{user.following_count == null ? 0 :user.following_count } Following</span>
                                         </div>
                                     </div>
                                 </div>

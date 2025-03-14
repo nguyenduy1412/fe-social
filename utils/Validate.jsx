@@ -41,6 +41,12 @@ const validate = {
       }
     }
     return day > 0 && day <= monthDays[month];
+  },
+  auth: ()=>{
+    if(localStorage.getItem("accessToken") === null) {
+      return false;
+    }
+    return true;
   }
 };
 

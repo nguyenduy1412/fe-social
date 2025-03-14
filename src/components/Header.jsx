@@ -1,14 +1,53 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../routes/axiosInstance";
+import { useUser } from "./UserProvider";
 const Header = () => {
+  const { user } = useUser();
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const [active, setActive] = useState([false, false, false]);
   const [activeTheme, setActiveTheme] = useState(theme == 'dark' ? true : false);
   const [isTop, setIsTop] = useState(true); // Kiểm tra nếu cuộn dưới 500px
   const [isNewsFeedActive, setIsNewsFeedActive] = useState(false); // Trạng thái active cho NewsFeed
   const scrollToTopRef = useRef(null); // Tham chiếu đến nút "Scroll to Top"
+  
+  const navigate = useNavigate();
+  const URL = import.meta.env.VITE_API_URL
+  const handleLogout = async (e) => {
+    e.preventDefault(); // Ngăn chặn load lại trang
+    try {
+      const response = await api.post("auth/logout");
+  
+      if (response.status === 200) {
+        // ✅ Xóa toàn bộ dữ liệu đăng nhập
+        localStorage.clear(); // Xóa toàn bộ localStorage thay vì từng item
+        sessionStorage.clear(); // Xóa session nếu có
+  
+        toast.success("Đăng xuất thành công!");
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error("Lỗi khi gọi API:", err);
+  
+      const status = err.response?.status;
+      const errorMessage = err.response?.data?.message || "Có lỗi xảy ra khi đăng xuất!";
+  
+      if (status === 401 || status === 403) {
+        // Nếu lỗi quyền, vẫn cần xóa token để tránh lặp vô hạn
+        localStorage.clear();
+        sessionStorage.clear();
+        toast.warning("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!");
+        navigate("/login");
+      } else {
+        toast.error(errorMessage);
+      }
+    }
+  };
+
+  
   const handleClick = (index) => {
     setActive((prevActive) =>
       prevActive.map((item, i) => (i === index ? !item : false))
@@ -322,7 +361,7 @@ const Header = () => {
                           <img className="avatar-img max-un" src="/src/assets/images/avatar-1.png" alt="avatar" />
                         </div>
                         <div className="text-area">
-                          <h6 className="m-0 mb-1">Lori Ferguson</h6>
+                          <h6 className="m-0 mb-1">{user?.fullName}</h6>
                           <p className="mdtxt">Web Developer</p>
                         </div>
                       </div>
@@ -338,7 +377,7 @@ const Header = () => {
                         </Link>
                       </li>
                       <li>
-                        <a href="#" className="mdtxt">
+                        <a href="#" className="mdtxt" onClick={handleLogout}>
                           <i className="material-symbols-outlined mat-icon"> power_settings_new </i>
                           Sign Out
                         </a>

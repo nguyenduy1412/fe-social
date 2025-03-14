@@ -6,7 +6,6 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from ".
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { VaultIcon } from "lucide-react";
 import validate from "@/Validate";
 const Register = () => {
     const [firstName, setFirstName] = useState("");

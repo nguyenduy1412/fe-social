@@ -75,11 +75,12 @@ const News = () => {
                     </div>
                 </div>
                 <div className="gap-3 p-3 share-post d-flex gap-sm-5 p-sm-5">
-                    <div className="profile-box">
-                        <a href="#"><img src="src/assets/images/add-post-avatar.png" className="max-un" alt="icon" /></a>
-                    </div>
+
                     <form action="#" className="w-100 position-relative">
-                        <textarea cols="10" rows="2" placeholder="Write something to Lerio.."></textarea>
+                        <div className="flex justify-between align-items-center">
+                            <a href="#"><img src="src/assets/images/add-post-avatar.png" className="pr-3 max-un" alt="icon" /></a>
+                            <textarea cols="10" rows="1" placeholder="Write something to Lerio.."></textarea>
+                        </div>
                         <div className="abs-area position-absolute d-none d-sm-block">
                             <i className="material-symbols-outlined mat-icon xxltxt"> sentiment_satisfied </i>
                         </div>

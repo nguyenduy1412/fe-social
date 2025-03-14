@@ -9,6 +9,9 @@ export default defineConfig({
     strictPort: true
   },
   plugins: [react()],
+  define: {
+    global: {},
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, './utils'),

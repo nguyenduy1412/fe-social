@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const MyProfile = ({hide,index}) => {
+const MyProfile = ({user,hide,index}) => {
     const [active,setActive]=useState(false)
     const showProfile=()=>{
         setActive(!active)
@@ -27,8 +27,8 @@ const MyProfile = ({hide,index}) => {
                             <img className="avatar-img max-un" src="/src/assets/images/avatar-1.png" alt="avatar" />
                         </div>
                         <div className="text-area">
-                            <h6 className="m-0 mb-1"><a href="profile-post.html">Lerio Mao</a></h6>
-                            <p className="mdtxt">@maolio</p>
+                            <h6 className="m-0 mb-1"><a href="profile-post.html">{user.full_name}</a></h6>
+                            <p className="mdtxt">{user.email}</p>
                         </div>
                     </div>
                     <ul className="profile-link mt-7 mb-7 pb-7">
